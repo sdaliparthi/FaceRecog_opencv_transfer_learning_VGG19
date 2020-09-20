@@ -54,13 +54,14 @@ def predictFaceClass(model, class_indices):
             # Predict the class based on the came image
             facePred = model.predict(faceImgData)
             print(f" ##> Custom VGG19 model predicted {facePred}. Actual Class labels : {class_indices}")
-            faceLabel = class_indices[facePred.argmax()]
+            predFaceLabel = class_indices[facePred.argmax()]
 
-            cv2.putText(camImgFaceCrop, str(faceLabel), (50, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0), 2)
-            cv2.imshow('--Cropped Face--', camImgFaceCrop)
-
+            cv2.putText(reqCamImgData, str(predFaceLabel), (50, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0), 2)
+            cv2.imshow('--LOCAL CAM FEED--', reqCamImgData)
         else:
             print(" ##> Unable to detect a face.\n")
+            cv2.putText(reqCamImgData, 'NO FACE', (50, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0), 2)
+            cv2.imshow('--LOCAL CAM FEED--', reqCamImgData)
 
         # Get out of loop when 'q' key is pressed or when required no.of images have been collected.
         if cv2.waitKey(1) == ord('q'):
